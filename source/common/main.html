@@ -1,0 +1,69 @@
+<main class="main">
+  <div class="step-1 show">
+    <h1 class="title">регистрация</h1>
+    <p class="about">
+      Зарегистрируйся в фан-клубе Елены Темниковой. Активируй email и телефон и получи доступ к уникальным подаркам, музыке и призам
+    </p>
+    <form class="form-registration" name="registration" method="post">
+      <div class="form-group">
+        <select class="form-group__control --select-country" name="country" style="width: 100%" required></select>
+      </div>
+      <div class="form-group">
+        <input class="form-group__control" type="text" name="lastName" value="Иванов" required disabled>
+      </div>
+
+      <div class="form-group">
+        <input class="form-group__control" type="text" name="firstName" value="Алексей" required disabled>
+      </div>
+      <div class="form-group">
+        <input class="form-group__control" type="text" name="vkId" value="alexivan" required disabled>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group--btn">
+          <input class="form-group__control" id="email" type="email" name="email" placeholder="E-mail" required >
+          <button class="btn btn-control" type="button" data-label="email">Активировать</button>
+          <div class="form-group__valid-label"></div>
+        </div>
+
+        <div class="form-group--confirm">
+          <span class="arrow"></span>
+          <p class="confirm-info">Проверьте электронную почту. Не получили письмо? </p>
+          <a class="confirm-repeat" href>Отправить еще раз</a>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group--btn">
+          <input class="form-group__control" id="phone" type="text" name="phone" placeholder="Телефон" required>
+          <button class="btn btn-control" type="button" data-label="phone">Получить код</button>
+          <div class="form-group__valid-label"></div>
+        </div>
+
+        <div class="form-group--confirm">
+          <span class="arrow"></span>
+          <p class="confirm-info">На указаный номер отправлен код подтверждения. Введите код из SMS.</p>
+          <div class="confirm-form">
+            <input class="confirm-control form-group__control" type="text" name="codePhone" placeholder="Код из SMS">
+            <button class="confirm-btn btn btn-red" type="button">Подтвердить</button>
+          </div>
+          <a class="confirm-repeat" href>Получить код еще раз</a>
+        </div>
+      </div>
+
+
+      <button class="form-submit btn btn-red">зарегистрироваться</button>
+    </form>
+  </div>
+
+  <div class="step-2">
+    <div class="success-block">
+      <h1 class="success__title title">регистрация УСПЕШНО ЗАВЕРШЕНА</h1>
+
+      <div class="success__icon"></div>
+      <p class="success__text">Ура, ты активирован! Теперь ты можешь зайти в VK и выполнять задания фан-клуба.</p>
+
+      <a class="success__btn btn btn-red" href="#">ПЕРЕЙТИ В vk</a>
+    </div>
+  </div>
+</main>

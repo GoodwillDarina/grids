@@ -1,0 +1,16 @@
+.floats {
+  clear: both;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  & > * {
+    float: left;
+    width: calc(25% - 20px);
+    margin: 0 10px 20px;
+  }
+}
