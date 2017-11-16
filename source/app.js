@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var classList = ['floats', 'inline-block', 'flexbox', 'grids'];
+  var classList = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5', 'step-6', 'step-7', 'step-8'];
   var actionBtn = $('.btn');
 
   actionBtn.each(function() {
@@ -13,9 +13,9 @@ $(document).ready(function(){
       $('.code[name="'+ classLayout +'"]').addClass('show');
 
       for(var i = 0; i < classList.length; i++) {
-        if($('.layout-box').hasClass(classList[i])) {
-          $('.layout-box').removeClass(classList[i]);
-          $('.layout-box').addClass(classLayout);
+        if($('.js-layout').hasClass(classList[i])) {
+          $('.js-layout').removeClass(classList[i]);
+          $('.js-layout').addClass(classLayout);
           break;
         }
       }

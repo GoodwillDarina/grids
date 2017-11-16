@@ -47,7 +47,7 @@ function clean() {
 }
 
 function copyIndex() {
-    return gulp.src('./source/index.html')
+    return gulp.src('./source/*.html')
         .pipe(rigger())
         .pipe(gulp.dest('./app'))
         .pipe(reload({stream: true}));

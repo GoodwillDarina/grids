@@ -10,96 +10,16 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-<section class="landing">
-    <h1 class="title">Простая сетка</h1>
-    <div class="actions">
-        <button class="btn btn-current" name="floats">Float</button>
-        <button class="btn" name="inline-block">Inline-block</button>
-        <button class="btn" name="flexbox">Flexbox</button>
-        <button class="btn" name="grids">Grids</button>
-    </div>
-
-    <ul class="layout-box floats">
-        <li class="layout-item">
-            Item 1
-        </li>
-        <li class="layout-item">
-            Item 2
-        </li>
-        <li class="layout-item">
-            Item 3
-        </li>
-        <li class="layout-item">
-            Item 4
-        </li>
-        <li class="layout-item">
-            Item 5
-        </li>
-        <li class="layout-item">
-            Item 6
-        </li>
-        <li class="layout-item">
-            Item 7
-        </li>
-        <li class="layout-item">
-            Item 10
-        </li>
-    </ul>
-
-    <pre class="code show" name="floats">
-        .floats {
-            clear: both;
-
-            &::before,
-            &::after {
-                content: '';
-                display: block;
-                clear: both;
-            }
-
-            & > * {
-                float: left;
-                width: calc(25% - 20px);
-                margin: 0 10px 20px;
-            }
-        }
-    </pre>
-    <pre class="code" name="inline-block">
-        .inline-block {
-            font-size: 0;
-
-            & > * {
-                display: inline-block;
-                vertical-align: middle;
-                width: calc(25% - 20px);
-                margin: 0 10px 20px;
-            }
-        }
-    </pre>
-    <pre class="code" name="flexbox">
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-
-            & > * {
-                width: calc(25% - 20px);
-                margin: 0 10px 20px;
-            }
-        }
-    </pre>
-    <pre class="code" name="grids">
-        .grids {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 20px;
-
-            padding: 0 10px;
-        }
-    </pre>
-</section>
-
+<main class="examples">
+    <h1 class="title">CSS Grid Examples</h1>
+    <nav class="examples-nav">
+        <a class="examples-nav__link" href="example-1.html">Example #1</a>
+        <a class="examples-nav__link" href="example-2.html">Example #2</a>
+        <a class="examples-nav__link" href="example-3.html">Example #3</a>
+        <a class="examples-nav__link" href="example-4.html">Example #4</a>
+        <a class="examples-nav__link" href="example-5.html">Example #5</a>
+    </nav>
+</main>
 <script src="./libs/jquery.min.js"></script>
 <script src="app.js"></script>
 </body>
