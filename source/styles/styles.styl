@@ -80,6 +80,11 @@ html, body {
         color: saturation(#c26182, 50%);
         background-color: rgba(#c26182, 0.25);
       }
+      &:nth-child(5) {
+        border-color: #ffeb3b;
+        color: saturation(#ffeb3b, 50%);
+        background-color: rgba(#ffeb3b, 0.25);
+      }
       &:last-child {
         border-color: #0b1a33;
         color: saturation(#0b1a33, 50%);
@@ -91,6 +96,7 @@ html, body {
 .nav-links {
   position: fixed;
   bottom: 0;
+  z-index: 100;
   width: 100%;
 
   text-align: center;
@@ -174,7 +180,7 @@ html, body {
 @supports (display: grid) {
   .examples-nav {
     display: grid;
-    grid-template-columns: repeat(5, 150px);
+    grid-template-columns: repeat(3, 150px);
     grid-auto-rows: 150px;
     grid-gap: 50px;
 
@@ -184,4 +190,9 @@ html, body {
   }
 }
 
-@require "examples/*";
+@require "examples/one";
+@require "examples/two";
+@require "examples/three";
+@require "examples/four";
+@require "examples/five";
+@require "examples/six";
