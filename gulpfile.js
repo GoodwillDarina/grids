@@ -1,108 +1,109 @@
-const gulp = require('gulp');
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
-const stylus = require('gulp-stylus');
-const nib = require('nib');
-const sourcemaps = require('gulp-sourcemaps');
-const rigger = require('gulp-rigger');
-const cssmin = require('gulp-minify-css');
-const del = require('del');
-const browserSync = require("browser-sync");
-const reload = browserSync.reload;
+const gulp = require("gulp");
+const uglify = require("gulp-uglify");
+const stylus = require("gulp-stylus");
+const nib = require("nib");
+const plumber = require("gulp-plumber");
+const minify = require("gulp-csso");
+const rename = require("gulp-rename");
+const imagemin = require("gulp-imagemin");
+const posthtml = require("gulp-posthtml");
+const htmlmin = require('gulp-htmlmin');
+const include = require("posthtml-include");
+const del = require("del");
+const run = require('run-sequence');
+const server = require("browser-sync").create();
 
-gulp.task('clean:css', cleanCss);
-gulp.task('clean:js', cleanJs);
-gulp.task('clean', clean);
+gulp.task("clean", function() {
+  del.sync(["./build"]);
+  console.log("[--------] script folder was deleted");
+});
 
-gulp.task('compile:js', compileJs);
-gulp.task('compile:stylus', compileStylus);
-gulp.task('copy:images', copyImages);
-gulp.task('copy:fonts', copyFonts);
-gulp.task('copy:libraries', copyLibraries);
+gulp.task("copy", function () {
+  return gulp.src([
+    "source/images/**",
+    "source/js/**"
+  ], {
+    base: "source"
+  })
+    .pipe(gulp.dest("build"));
+});
 
-gulp.task('server', startServer);
+gulp.task("style", function() {
+  return gulp.src("source/styles/styles.styl")
+    .pipe(plumber())
+    .pipe(stylus({
+      "paths": ["node_modules", "source/styles"],
+      "import": ["nib", "stylus-type-utils"],
+      "use": [nib()],
+      "include css": true
+    }))
+    .pipe(gulp.dest("build/css"))
+    .pipe(rename("style.min.css"))
+    .pipe(gulp.dest("build/css"))
+    .pipe(server.stream());
+});
 
-gulp.task('build', ['clean', 'copy:fonts', 'copy:images', 'copy:libraries', 'compile:js', 'compile:stylus'], copyIndex);
+gulp.task("scripts", function() {
+  return gulp.src("source/script.js")
+    .pipe(gulp.dest("build/js"))
+    .pipe(uglify())
+    .pipe(rename("script.min.js"))
+    .pipe(gulp.dest("build/js"))
+    .pipe(server.stream());
+});
 
-gulp.task('watcher:css', ['clean:css', 'compile:stylus'], copyIndex);
-gulp.task('watcher:js', ['clean:js', 'compile:js'], copyIndex);
-gulp.task('watch', ['build'], watch);
+gulp.task("libs", function() {
+  return gulp.src([
+    "node_modules/jquery/dist/jquery.min.js",
+    "node_modules/normalize.css/normalize.css",
+    "source/libs/**"
+  ])
+    .pipe(gulp.dest("build/libs"))
+});
 
-gulp.task('server:watch', ['server', 'build'], watch);
-gulp.task('default', ['build']);
+gulp.task("images", function() {
+  return gulp.src("source/images/**/*.{png,jpg,svg}")
+    .pipe(imagemin([
+      imagemin.optipng({optimizationLevel: 3}),
+      imagemin.jpegtran({progressive: true}),
+      imagemin.svgo()
+    ]))
+    .pipe(gulp.dest("build/images"))
+});
 
-function startServer() {
-    browserSync({
-        server: {
-            baseDir: "./app"
-        },
-        host: 'localhost',
-        port: 9009
-    });
-}
+gulp.task("html", function () {
+  return gulp.src("source/*.html")
+    .pipe(posthtml([
+      include()
+    ]))
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest("build"));
+});
 
-function clean() {
-    del.sync(['./app']);
-    console.log('[--------] App folder was deleted');
-}
+gulp.task("build", function (done) {
+  run(
+    "clean",
+    "copy",
+    "libs",
+    "style",
+    "images",
+    "scripts",
+    "html",
+    done
+  );
+});
 
-function copyIndex() {
-    return gulp.src('./source/*.html')
-        .pipe(rigger())
-        .pipe(gulp.dest('./app'))
-        .pipe(reload({stream: true}));
-}
+gulp.task("serve", function() {
+  server.init({
+    server: "build/",
+    notify: false,
+    open: true,
+    cors: true,
+    ui: false,
+    port: 9009
+  });
 
-function compileJs() {
-    return gulp.src('./source/app.js')
-        .pipe(sourcemaps.init())
-        .pipe(concat('app.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./app'))
-}
-
-function compileStylus() {
-    return gulp.src('./source/styles/styles.styl')
-        .pipe(sourcemaps.init())
-        .pipe(stylus({
-            'paths':  ['node_modules', 'source/styles'],
-            'import': ['nib', 'stylus-type-utils'],
-            'use': [nib()],
-            'include css': true
-        }))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./app/styles'))
-}
-
-function copyImages() {
-    return gulp.src('./source/images/**/*.*')
-        .pipe(gulp.dest('./app/images'));
-}
-
-function copyFonts() {
-    return gulp.src('./source/fonts/**/*.*')
-        .pipe(gulp.dest('./app/fonts'));
-}
-
-function copyLibraries() {
-    return gulp.src([
-        './node_modules/jquery/dist/jquery.min.js',
-        './node_modules/normalize.css/normalize.css',
-        './source/libs/**/*.js'
-    ])
-        .pipe(gulp.dest('./app/libs/'));
-}
-
-function cleanCss() {
-    del.sync(['./app/styles/**']);
-}
-
-function cleanJs() {
-    del.sync(['./app/app.*']);
-}
-
-function watch() {
-    gulp.watch(['./source/styles/**/*.styl', './source/styles/**/*.css'], ['watcher:css']);
-    gulp.watch(['./source/**/*.html', './source/**/*.js'], ['watcher:js']);
-}
+  gulp.watch("source/styles/**/*.styl", ["style"]);
+  gulp.watch("source/js/*.js", ["scripts"]);
+  gulp.watch("source/*.html", ["html"]);
+});

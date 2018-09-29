@@ -1,29 +1,41 @@
 {
-  "name": "azjft-migration",
+  "name": "grids-layout",
   "version": "1.0.0",
-  "description": "Azoft Site",
-  "main": "gulpfile.js",
-  "author": "Azoft",
+  "description": "Examples of working with CSS Grid Layout",
+  "author": "Daria Saburova",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.2.3",
-    "browserify": "^13.0.0",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-minify-css": "^1.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rigger": "^0.5.8",
-    "gulp-sourcemaps": "^2.0.0-alpha",
+    "autoprefixer": "8.3.x",
+    "browser-sync": "^2.24.7",
+    "del": "^3.0.0",
+    "gulp": "3.9.x",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "4.1.0",
+    "gulp-plumber": "1.2.x",
+    "gulp-posthtml": "^3.0.4",
+    "gulp-rename": "^1.2.2",
     "gulp-stylus": "^2.3.1",
-    "gulp-uglify": "^1.5.3",
+    "gulp-uglify": "^3.0.1",
     "nib": "^1.1.0",
     "path": "^0.12.7",
+    "posthtml-include": "^1.1.0",
+    "run-sequence": "^2.2.1",
     "stylus": "^0.54.2",
     "stylus-type-utils": "0.0.3"
   },
   "dependencies": {
     "normalize.css": "^4.2.0",
     "jquery": "^3.1.0"
-  }
+  },
+  "scripts": {
+    "build": "gulp build",
+    "start": "npm run build && gulp serve"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "IE 11",
+    "Firefox ESR"
+  ]
 }

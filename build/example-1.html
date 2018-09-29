@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Grids Example</title><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet"><link rel="stylesheet" href="libs/normalize.css"><link rel="stylesheet" href="css/styles.css"></head><body><section class="grids-example"><h1 class="title">Simple grid</h1><div class="actions"><button class="btn btn-current" name="step-1">Float</button> <button class="btn" name="step-2">Inline-block</button> <button class="btn" name="step-3">Flexbox</button> <button class="btn" name="step-4">Grids</button></div><ul class="layout-box step-1 js-layout"><li class="layout-item">Item 1</li><li class="layout-item">Item 2</li><li class="layout-item">Item 3</li><li class="layout-item">Item 4</li><li class="layout-item">Item 5</li><li class="layout-item">Item 6</li><li class="layout-item">Item 7</li><li class="layout-item">Item 10</li></ul><pre class="code show" name="step-1">
+        .floats {
+            clear: both;
+
+            &::before,
+            &::after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            & > * {
+                float: left;
+                width: calc(25% - 20px);
+                margin: 0 10px 20px;
+            }
+        }
+    </pre><pre class="code" name="step-2">
+        .inline-block {
+            font-size: 0;
+
+            & > * {
+                display: inline-block;
+                vertical-align: middle;
+                width: calc(25% - 20px);
+                margin: 0 10px 20px;
+            }
+        }
+    </pre><pre class="code" name="step-3">
+        .flexbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+
+            & > * {
+                width: calc(25% - 20px);
+                margin: 0 10px 20px;
+            }
+        }
+    </pre><pre class="code" name="step-4">
+        .grids {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+
+            padding: 0 10px;
+        }
+    </pre></section><div class="nav-links"><a href="index.html">Home</a></div><script src="libs/jquery.min.js"></script><script src="js/script.min.js"></script></body></html>

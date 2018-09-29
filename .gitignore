@@ -1,5 +1,10 @@
-/source/app/config.js
-/npm-debug.log
-/source/app/local.config.js
-/source/stylus/**/*.css
-/node_modules
+.DS_Store
+.idea
+*.ai
+*.log
+*.pdf
+*.psd
+*.sublime*
+node_modules/
+npm-debug.*
+Thumbs.db
